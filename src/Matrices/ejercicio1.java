@@ -30,11 +30,12 @@ public class ejercicio1 {
 
                 }
             }
-            if (positivos == 25){
-                System.out.println("La matriz es positiva");
-            }else {
-                System.out.println("Hay numeros de ambos tipos");
-            }
+
+        }
+        if (positivos == 25){
+            System.out.println("La matriz es positiva");
+        }else {
+            System.out.println("Hay numeros de ambos tipos");
         }
 
     }
