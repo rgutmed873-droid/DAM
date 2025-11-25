@@ -16,7 +16,28 @@ public class ejercicio1 {
         rellenar(matriz);
         imprimirmatriz(matriz);
         positivo(matriz);
+        diagonal(matriz);
 
+    }
+
+    private static boolean diagonal(int[][] matriz) {
+
+        //Recorrer todos los elementos
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[0].length; j++) {
+
+            //Si no estamos en la diagonal principal
+            if (i != j){
+
+                //si el elemento no es 0 en el diagonal
+                if (matriz[i][j] != 0){
+                    return false;
+                }
+            }
+
+            }
+        }
+        return true;
     }
 
     private static void positivo(int[][] matriz) {
