@@ -1,4 +1,4 @@
-package Matrices;
+package Tema8.Matrices;
 
 import java.util.Random;
 
