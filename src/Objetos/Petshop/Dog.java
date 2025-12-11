@@ -19,7 +19,7 @@ public class Dog extends Animals{
      * @param breed
      * @param typeHair
      */
-    public Dog(String sex, int edad, int codigoEAN, String color, String breed, String typeHair) {
+    public Dog(Genero sex, int edad, int codigoEAN, String color, String breed, String typeHair) {
         super(sex, edad, codigoEAN);
         this.color = color;
         this.breed = breed;

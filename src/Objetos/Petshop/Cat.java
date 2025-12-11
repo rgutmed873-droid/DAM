@@ -7,7 +7,7 @@ public class Cat extends Animals{
     public String breed;
     public String typeHair;
 
-    public Cat(String sex, int edad, int codigoEAN, String color, String breed, String typeHair) {
+    public Cat(Genero sex, int edad, int codigoEAN, String color, String breed, String typeHair) {
         super(sex, edad, codigoEAN);
         this.color = color;
         this.breed = breed;
@@ -18,4 +18,5 @@ public class Cat extends Animals{
     protected int convertidorEdad(int edad) {
         return super.convertidorEdad(edad);
     }
+
 }

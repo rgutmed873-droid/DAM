@@ -29,7 +29,6 @@ public abstract class Animals {
 
     }
 
-
     public Genero getSex() {
         return sex;
     }
