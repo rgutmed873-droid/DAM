@@ -1,6 +1,7 @@
 package Objetos.Petshop;
 
 public class Cat extends Animals{
+
     //Atributos Principales
     public String color;
     public String breed;
@@ -11,5 +12,10 @@ public class Cat extends Animals{
         this.color = color;
         this.breed = breed;
         this.typeHair = typeHair;
+    }
+
+    @Override
+    protected int convertidorEdad(int edad) {
+        return super.convertidorEdad(edad);
     }
 }

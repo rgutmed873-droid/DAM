@@ -1,9 +1,11 @@
 package Objetos.Petshop;
 
+import java.util.Scanner;
+
 public abstract class Animals {
     //Atributos Principales
 
-    public String sex;
+    public Genero sex;
     public int edad;
     public int codigoEAN;
 
@@ -14,9 +16,9 @@ public abstract class Animals {
      * @param edad
      * @param codigoEAN
      */
-    public Animals(String sex, int edad, int codigoEAN) {
+    public Animals(Genero sex, int edad, int codigoEAN) {
         this.sex = sex;
-        this.edad = edad;
+        this.edad = convertidorEdad(edad);
         this.codigoEAN = codigoEAN;
     }
 
@@ -28,12 +30,12 @@ public abstract class Animals {
     }
 
 
-    public String getSex() {
+    public Genero getSex() {
         return sex;
     }
 
     public void setSex(String sex) {
-        this.sex = sex;
+        this.sex = Genero.valueOf(sex);
     }
 
     public int getEdad() {
@@ -55,12 +57,47 @@ public abstract class Animals {
     @Override
     public String toString() {
         return "Animals{" +
-                "sex='" + sex + '\'' +
-                ", edad=" + edad +
+                "sex='" + getSex() + '\'' +
+                ", edad=" + getEdad() +
                 ", codigoEAN=" + codigoEAN +
                 '}';
     }
 
-    //Crear metodo para saber si es macho o hembra
-    //Crear metodo para edad del animal
+    /**
+     * Metodo para determinar el sexo del animal
+     * MIRAR MEJOR EL METODO E INTENTAR RETOCARLO
+     * @param sex
+     */
+    protected void sexoAnimal (String sex){
+
+        if (sex.equals("Macho")){
+           this.sex = Genero.MACHO;
+        }else if (sex.equals("Hembra")){
+            this.sex = Genero.HEMBRA;
+        }else {
+            System.out.println("No has escogido sexo para el animal");
+        }
+
+    }
+
+
+    /**
+     * Metodo para determinar la edad de un animal
+     * @param edad
+     */
+    protected int convertidorEdad (int edad){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Introduce los años que tiene el animal");
+        int años = sc.nextInt();
+
+        int edadDias = 365;
+
+        int edadAnimal;
+        edadAnimal = edadDias * años;
+
+        System.out.println("La edad del animal en dias es: " + edadAnimal);
+
+        return edadAnimal;
+    }
 }

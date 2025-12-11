@@ -1,6 +1,7 @@
 package Objetos.Petshop;
 
 public class Rats extends Animals{
+
     //Atributos principales
     public int weight;
     public int size;
@@ -9,5 +10,10 @@ public class Rats extends Animals{
         super(sex, edad, codigoEAN);
         this.weight = weight;
         this.size = size;
+    }
+
+    @Override
+    protected int convertidorEdad(int edad) {
+        return super.convertidorEdad(edad);
     }
 }
