@@ -6,6 +6,9 @@ public class Rats extends Animals{
     public int weight;
     public int size;
 
+    //Comprobar tamaño y peso
+    //Precio por KG
+
     public Rats(Genero sex, int edad, int codigoEAN, int weight, int size) {
         super(sex, edad, codigoEAN);
         this.weight = weight;

@@ -8,7 +8,9 @@ public abstract class Animals {
     public Genero sex;
     public int edad;
     public int codigoEAN;
-
+    public boolean estadoVenta;
+    //Añadir atributo venta general de animales
+    //Añadir contador de animales (vendidos,por tipo,mascotas)
 
     /**
      * Constructor con los atributos principales
@@ -99,4 +101,8 @@ public abstract class Animals {
 
         return edadAnimal;
     }
+
+    //Metodo para vender animales
+    //Metodo para comprobar
+
 }

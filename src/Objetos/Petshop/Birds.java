@@ -6,6 +6,8 @@ public class Birds extends Animals{
     public String color;
     public String type;
 
+    //Añadir precio fijo
+
     public Birds(Genero sex, int edad, int codigoEAN, String color, String type) {
         super(sex, edad, codigoEAN);
         this.color = color;

@@ -10,6 +10,8 @@ public class Dog extends Animals{
     public String typeHair;
     public boolean pedigree;
 
+    //Añadir que llame el precio con pedigree o no
+
     /**
      * Constructor Perro
      * @param sex
