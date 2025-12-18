@@ -44,8 +44,4 @@ public abstract class Evento implements Metodos{
         this.estaVencido = estaVencido;
     }
 
-    //RELLENAR CON LOS DATOS NECESARIOS
-    public void mostrarInfo(){
-
-    }
 }
