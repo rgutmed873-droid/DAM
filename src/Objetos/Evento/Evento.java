@@ -17,6 +17,7 @@ public abstract class Evento implements Metodos{
     public Evento(String nombre, LocalDateTime fechaHora) {
         this.nombre = nombre;
         this.fechaHora = fechaHora;
+        this.estaVencido = fechaHora.isBefore(LocalDateTime.now());
     }
 
     //GETTERS AND SETTERS

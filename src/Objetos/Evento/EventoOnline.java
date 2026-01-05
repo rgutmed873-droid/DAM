@@ -30,7 +30,10 @@ public class EventoOnline extends Evento{
 
     @Override
     public void mostrarInfo() {
-
+        System.out.println("Evento presencial: " + nombre);
+        System.out.println("Fecha: " + fechaHora);
+        System.out.println("Plataforma: " + plataforma);
+        System.out.println("Vencido: " + estaVencido);
     }
 
     @Override
