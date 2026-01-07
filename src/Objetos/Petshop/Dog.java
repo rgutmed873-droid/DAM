@@ -2,7 +2,7 @@ package Objetos.Petshop;
 
 import java.util.Random;
 
-public class Dog extends Animals{
+public class Dog extends pets{
 
     //Atributos principales
     public String color;

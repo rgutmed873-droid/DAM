@@ -1,0 +1,23 @@
+package Objetos.Petshop;
+
+public class Owner {
+
+    private String nombre;
+    private String apellidos;
+    private String dni;
+
+    public Owner(String nombre, String apellidos, String dni) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.dni = dni;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    @Override
+    public String toString() {
+        return nombre + " " + apellidos + " (DNI: " + dni + ")";
+    }
+}

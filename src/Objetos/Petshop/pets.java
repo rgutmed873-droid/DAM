@@ -1,13 +1,49 @@
 package Objetos.Petshop;
 
-public class pets extends Animals{
+public abstract class pets extends Animals{
 
-    //Atributos necesarios para venta de mascotas
-    int chip;
-    String nombre;
-    String dueño;
-    //En dueño añadir los datos de nombre,apellidos,DNI
+    protected int chip;
+    protected String nombre;
+    protected Owner owner;
 
+    /**
+     * Constructor de mascota
+     */
+    public pets (Genero sex, int edadAnios, int codigoEAN,
+               int chip, String nombre) {
 
+        super(sex, edadAnios, codigoEAN);
+        this.chip = chip;
+        this.nombre = nombre;
+        this.owner = null; // Se asigna al vender
+    }
 
+    public int getChip() {
+        return chip;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    /**
+     * Asignar dueño al vender la mascota
+     */
+    public void asignarOwner(Owner owner) {
+        this.owner = owner;
+        this.vendido = true;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                ", Chip=" + chip +
+                ", Nombre=" + nombre +
+                ", Dueño=" + (owner != null ? owner : "Sin dueño");
+    }
 }
+

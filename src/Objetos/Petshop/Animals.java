@@ -5,22 +5,21 @@ import java.util.Scanner;
 public abstract class Animals {
     //Atributos Principales
 
-    public Genero sex;
-    public int edad;
-    public int codigoEAN;
-    public boolean estadoVenta;
-    //Añadir atributo venta general de animales
-    //Añadir contador de animales (vendidos,por tipo,mascotas)
+    protected Genero sex;
+    protected int edad;
+    protected int codigoEAN;
+    protected boolean vendido;
+
 
     /**
      * Constructor con los atributos principales
      * @param sex
-     * @param edad
+     * @param edadAnios
      * @param codigoEAN
      */
-    public Animals(Genero sex, int edad, int codigoEAN) {
+    public Animals(Genero sex, int edadAnios, int codigoEAN) {
         this.sex = sex;
-        this.edad = convertidorEdad(edad);
+        this.edad = convertidorEdad(edadAnios);
         this.codigoEAN = codigoEAN;
     }
 
@@ -64,45 +63,8 @@ public abstract class Animals {
                 '}';
     }
 
-    /**
-     * Metodo para determinar el sexo del animal
-     * MIRAR MEJOR EL METODO E INTENTAR RETOCARLO
-     * @param sex
-     */
-    protected void sexoAnimal (String sex){
-
-        if (sex.equals("Macho")){
-           this.sex = Genero.MACHO;
-        }else if (sex.equals("Hembra")){
-            this.sex = Genero.HEMBRA;
-        }else {
-            System.out.println("No has escogido sexo para el animal");
-        }
-
+    protected int convertidorEdad(int edadAnios) {
+        return edad * 365;
     }
-
-
-    /**
-     * Metodo para determinar la edad de un animal
-     * @param edad
-     */
-    protected int convertidorEdad (int edad){
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Introduce los años que tiene el animal");
-        int años = sc.nextInt();
-
-        int edadDias = 365;
-
-        int edadAnimal;
-        edadAnimal = edadDias * años;
-
-        System.out.println("La edad del animal en dias es: " + edadAnimal);
-
-        return edadAnimal;
-    }
-
-    //Metodo para vender animales
-    //Metodo para comprobar
 
 }
