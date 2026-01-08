@@ -1,10 +1,10 @@
-package Objetos.Evento;
+package Objetos.recap;
 
 public class Usuario {
 
     //Atributos principales
-    String nombreUsuario;
-    long password;
+    private String nombreUsuario;
+    private long password;
 
     /**
      * Constructor con los atributos
@@ -14,13 +14,6 @@ public class Usuario {
     public Usuario(String nombreUsuario, long password) {
         this.nombreUsuario = nombreUsuario;
         this.password = password;
-    }
-
-    /**
-     * Constructor Vacio
-     */
-    public Usuario (){
-
     }
 
     //GETTER AND SETTER DE LOS ATRIBUTOS PRINCIPALES

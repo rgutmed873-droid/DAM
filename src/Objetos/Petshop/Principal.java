@@ -1,4 +1,4 @@
-package Objetos;
+package Objetos.Petshop;
 
 import Objetos.Petshop.Animals;
 import Objetos.Petshop.Dog;

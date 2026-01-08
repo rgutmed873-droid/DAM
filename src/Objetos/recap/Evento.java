@@ -1,10 +1,9 @@
-package Objetos.Evento;
+package Objetos.recap;
 
-public interface Metodos {
+public interface Evento {
 
     void mostrarInfo();
     void añadirEvento();
     void modificarEvento();
     void borraEvento();
-
 }

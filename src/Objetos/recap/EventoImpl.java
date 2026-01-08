@@ -1,26 +1,19 @@
-package Objetos.Evento;
+package Objetos.recap;
 
 import java.time.LocalDateTime;
 
-public abstract class Evento implements Metodos{
+public abstract class EventoImpl implements Evento{
 
-    //ATRIBUTOS PRINCIPALES
-    String nombre;
-    LocalDateTime fechaHora;
-    boolean estaVencido;
+    protected String nombre;
+    protected LocalDateTime fechaHora;
+    protected boolean estaVencido;
 
-    /**
-     * Constructor con atributos
-     * @param nombre
-     * @param fechaHora
-     */
-    public Evento(String nombre, LocalDateTime fechaHora) {
+    public EventoImpl(String nombre, LocalDateTime fechaHora, boolean estaVencido) {
         this.nombre = nombre;
         this.fechaHora = fechaHora;
-        this.estaVencido = fechaHora.isBefore(LocalDateTime.now());
+        this.estaVencido = estaVencido;
     }
 
-    //GETTERS AND SETTERS
     public String getNombre() {
         return nombre;
     }
@@ -45,4 +38,21 @@ public abstract class Evento implements Metodos{
         this.estaVencido = estaVencido;
     }
 
+    @Override
+    public abstract void mostrarInfo();
+
+    @Override
+    public void añadirEvento() {
+
+    }
+
+    @Override
+    public void modificarEvento() {
+
+    }
+
+    @Override
+    public void borraEvento() {
+
+    }
 }
