@@ -16,7 +16,7 @@ public class EventoOnline extends EventoImpl{
     }
 
     public EventoOnline (String nombre, LocalDateTime fechaHora, String plataforma){
-        super(nombre,fechaHora,false);
+        super(nombre,fechaHora);
         this.plataforma = plataforma;
     }
 
@@ -26,5 +26,20 @@ public class EventoOnline extends EventoImpl{
         System.out.println("Evento Online: " + super.nombre);
         System.out.println("Fecha y hora: " + super.fechaHora);
         System.out.println("Plataforma " + this.plataforma);
+    }
+
+    @Override
+    public void borrarEvento() {
+
+    }
+
+    @Override
+    public void borraEvento() {
+
+    }
+
+    @Override
+    public boolean esFuturo() {
+        return false;
     }
 }

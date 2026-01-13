@@ -13,8 +13,23 @@ public class EventoPresencial extends EventoImpl{
         System.out.println("Aula " + this.aula);
     }
 
+    @Override
+    public void borrarEvento() {
+
+    }
+
+    @Override
+    public void borraEvento() {
+
+    }
+
+    @Override
+    public boolean esFuturo() {
+        return false;
+    }
+
     public EventoPresencial(String nombre, LocalDateTime fechaHora, String aula) {
-        super(nombre,fechaHora, false);
+        super(nombre,fechaHora);
 
         this.aula = aula;
     }

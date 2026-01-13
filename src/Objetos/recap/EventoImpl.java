@@ -6,12 +6,12 @@ public abstract class EventoImpl implements Evento{
 
     protected String nombre;
     protected LocalDateTime fechaHora;
-    protected boolean estaVencido;
 
-    public EventoImpl(String nombre, LocalDateTime fechaHora, boolean estaVencido) {
+
+    public EventoImpl(String nombre, LocalDateTime fechaHora) {
         this.nombre = nombre;
         this.fechaHora = fechaHora;
-        this.estaVencido = estaVencido;
+
     }
 
     public String getNombre() {
@@ -30,13 +30,6 @@ public abstract class EventoImpl implements Evento{
         this.fechaHora = fechaHora;
     }
 
-    public boolean isEstaVencido() {
-        return estaVencido;
-    }
-
-    public void setEstaVencido(boolean estaVencido) {
-        this.estaVencido = estaVencido;
-    }
 
     @Override
     public abstract void mostrarInfo();
@@ -52,7 +45,8 @@ public abstract class EventoImpl implements Evento{
     }
 
     @Override
-    public void borraEvento() {
+    public abstract void borraEvento();
 
-    }
+    public abstract boolean esFuturo();
+
 }
