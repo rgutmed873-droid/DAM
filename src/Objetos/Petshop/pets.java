@@ -18,6 +18,9 @@ public abstract class pets extends Animals{
         this.owner = null; // Se asigna al vender
     }
 
+    public pets(Genero sex, int edad, int codigoEAN) {
+    }
+
     public int getChip() {
         return chip;
     }
