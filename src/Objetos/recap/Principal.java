@@ -1,6 +1,5 @@
 package Objetos.recap;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -18,73 +17,12 @@ public class Principal {
 
         if (loguearse(usuarios)){
             System.out.println("Bienvenido a la aplicación");
-
+            mostrarMenuEvento();
         }else {
             System.out.println("Cerrando a la aplicacion");
             sc.close();
         }
 
-
-        int opcion = 0;
-        do{
-
-            opcion = sc.nextInt();
-
-            switch (opcion){
-                case 1:
-                    mostrarEventos(eventos);
-                    break;
-                case 2:
-                    listarEventosFuturos(eventos);
-                case 3:
-                    System.out.println("Dime el nombre de usuario");
-                    String nuevoUsuario = sc.nextLine();
-                    if (!comprobarUsuario(usuarios, nuevoUsuario)){
-                        break;
-                    }
-                    System.out.println("Dime la contraseña del nuevo usuario");
-                    String nuevaPass = sc.nextLine();
-
-
-                    boolean esCorrecta = false;
-
-                    while(esCorrecta){
-                        try{
-                            esCorrecta = comprobarNuevaPass(nuevaPass);
-                            System.out.println("Contraseña correcta");
-                        } catch (PasswordException e) {
-                            System.out.println(e.getTipoError());
-                            System.out.println("Intentalo de nuevo");
-                        }
-
-                    }
-
-                    try {
-                        if (comprobarNuevaPass(nuevaPass)) {
-                            try {
-                                addUser(usuarios, nuevoUsuario, nuevaPass);
-                            }catch (Exception e){
-                                e.getMessage();
-                            }
-                        }
-                    } catch (PasswordException e) {
-                        System.out.println(e.getTipoError());
-                    }
-
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    eliminarEvento(eventos);
-                    break;
-                case 6:
-                    crearNuevoUsuario(usuarios);
-                    break;
-                case 7:
-
-            }
-
-        }while (opcion != 0);
 
     }
 
@@ -151,7 +89,7 @@ public class Principal {
         }
     }
 
-    private static void mostrarMenuAdmin() {
+    private static void mostrarMenuEvento() {
         System.out.println("Bienvenido a la app de EVENTOS: " +
                 "\n\t1. Mostrar Eventos"+
                 "\n\t2. Mostrar Eventos futuros"+
@@ -162,12 +100,70 @@ public class Principal {
                 "\n\t7. Salir");
     }
 
-    private static void mostrarMenu() {
+    private static void mostrarMenu(ArrayList<EventoImpl> eventos, HashMap<String, String> usuarios) {
+        Scanner sc = new Scanner(System.in);
 
-        System.out.println("Bienvenido a la app de EVENTOS: " +
-                "\n\t1. Mostrar Eventos"+
-                "\n\t2. Añadir Eventos"+
-                "\n\t3. Borrar Eventos");
+        int opcion = 0;
+        do{
+
+            opcion = sc.nextInt();
+
+            switch (opcion){
+                case 1:
+                    mostrarEventos(eventos);
+                    break;
+                case 2:
+                    listarEventosFuturos(eventos);
+                case 3:
+                    System.out.println("Dime el nombre de usuario");
+                    String nuevoUsuario = sc.nextLine();
+                    if (!comprobarUsuario(usuarios, nuevoUsuario)){
+                        break;
+                    }
+                    System.out.println("Dime la contraseña del nuevo usuario");
+                    String nuevaPass = sc.nextLine();
+
+
+                    boolean esCorrecta = false;
+
+                    while(esCorrecta){
+                        try{
+                            esCorrecta = comprobarNuevaPass(nuevaPass);
+                            System.out.println("Contraseña correcta");
+                        } catch (PasswordException e) {
+                            System.out.println(e.getTipoError());
+                            System.out.println("Intentalo de nuevo");
+                        }
+
+                    }
+
+                    try {
+                        if (comprobarNuevaPass(nuevaPass)) {
+                            try {
+                                addUser(usuarios, nuevoUsuario, nuevaPass);
+                            }catch (Exception e){
+                                e.getMessage();
+                            }
+                        }
+                    } catch (PasswordException e) {
+                        System.out.println(e.getTipoError());
+                    }
+
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    eliminarEvento(eventos);
+                    break;
+                case 6:
+                    crearNuevoUsuario(usuarios);
+                    break;
+                case 7:
+
+            }
+
+        }while (opcion != 0);
+
     }
 
     private static void cargarUsuarios(HashMap<String, String> usuarios) {
