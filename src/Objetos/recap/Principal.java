@@ -124,8 +124,26 @@ public class Principal {
 
         }
         //Pedir el nombre para borrar el evento
+        System.out.println("\n Nombre del evento a eliminar");
+        String nombreEventoEliminar = sc.nextLine();
 
+        //Buscar y borrar
+        boolean encontrado = false;
 
+        for (int i = 0; i < eventos.size(); i++) {
+            if (eventos.get(i).getNombre().equalsIgnoreCase(nombreEventoEliminar)){
+                eventos.remove(i);
+                encontrado = true;
+                System.out.println("Evento " + nombreEventoEliminar + "eliminado");
+                break;
+            }
+
+        }
+        if (!encontrado){
+            System.out.println("Evento" + nombreEventoEliminar + "no encontrado");
+        }
+
+        System.out.println("Quedan " + eventos.size() + " en la lista de los eventos");
 
     }
 
