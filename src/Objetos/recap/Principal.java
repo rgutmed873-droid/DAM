@@ -1,5 +1,6 @@
 package Objetos.recap;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -15,10 +16,9 @@ public class Principal {
 
         cargarUsuarios(usuarios);
 
-
         if (loguearse(usuarios)){
             System.out.println("Bienvenido a la aplicación");
-            mostrarMenuEvento();
+            mostrarMenuEvento(eventos, usuarios);
         }else {
             System.out.println("Cerrando a la aplicacion");
             sc.close();
@@ -28,7 +28,35 @@ public class Principal {
     }
 
     private static void crearNuevoUsuario(HashMap<String, String> usuarios) {
+        Scanner sc = new Scanner(System.in);
 
+        //Varificar si es admin el usuario
+        if (!"admin".equals(usuarioActual)) {
+            System.out.println("Acceso denegado: Solo el admin puede crear usuarios");
+            return;
+        }
+
+        //Pedir nuevo usuario
+        System.out.println("Introduce el nuevo usuario: ");
+        String nuevoUsuario = sc.nextLine();
+
+        //Comprobar que nuevo usuario
+        if(usuarios.containsKey(nuevoUsuario)){
+            System.out.println("El usuario ya existe");
+            return;
+        }
+
+        System.out.println("Introduce la contraseña");
+        String nuevaPass = sc.nextLine();
+
+        try {
+            comprobarNuevaPass(nuevaPass);
+            usuarios.put(nuevoUsuario,nuevaPass);
+            System.out.println("Usuario correctamente");
+        }catch (PasswordException e){
+            System.out.println("Error: " + e.getMessage());
+            System.out.println("Usuario no creado");
+        }
     }
 
     private static void listarEventosFuturos(ArrayList<EventoImpl> eventos) {
@@ -38,14 +66,30 @@ public class Principal {
     private static boolean comprobarNuevaPass(String nuevaPass) throws PasswordException {
 
         //la contraseña debe cumplir las condicones de 8-12 con letras y simbolos !=?¿
-        //Para el git
-        String expresionRegular = "[a-zA-Z]{8,12}";
-        if(nuevaPass.matches(expresionRegular)){
-            return true;
-        }else {
-            throw new PasswordException("Error en el sistema. Hable con el adminsitrador", TipoErrorPassword.ERROR_PASSWORD_LETRAS);
+        //La longitud de la contraseña debe tener entre 8 y 12 caracteres
+        if (nuevaPass.length() < 8 || nuevaPass.length() >12){
+            throw new PasswordException("La contraseña debe tener entre 8 y 12 caracteres");
+
+        }
+        /**
+         *
+         */
+        if (!nuevaPass.matches(".*[a-zA-z].*")){
+            throw new PasswordException("La contraseña debe contener letras");
+        }
+        /**
+         *
+         */
+        if (nuevaPass.matches(".*\\d.*")){
+            throw new PasswordException("La contraseña NO puede tener numeros");
         }
 
+        if (!nuevaPass.matches("-*[!@#$%&*].*")){
+            throw new PasswordException("La contraseña debe contener al menos un símbolo (!@#$%&*)");
+
+        }
+
+        return true;
 
     }
 
@@ -65,23 +109,27 @@ public class Principal {
     }
 
     private static void eliminarEvento(ArrayList<EventoImpl> eventos) {
+        Scanner sc = new Scanner(System.in);
 
-        String nombreEventoEliminar = "Tareas Moodle";
+        System.out.println("\n BORRAR EVENTO");
 
-        if(eventos.isEmpty())
+        if(eventos.isEmpty()) {
             System.out.println("Lista de eventos vacia");
-        else {
-
-            for (int i = 0; i < eventos.size(); i++) {
-
-                if (eventos.get(i).getNombre().equalsIgnoreCase(nombreEventoEliminar))
-                    eventos.remove(i);
-
-            }
+            return;
+        }
+        //Mostrar que eventos hay
+        System.out.println("Eventos disponibles:");
+        for (int i = 0; i < eventos.size(); i++) {
+            System.out.println("-" + eventos.get(i).getNombre());
 
         }
+        //Pedir el nombre para borrar el evento
+
+
 
     }
+
+
 
     private static void mostrarEventos(ArrayList<EventoImpl> eventos) {
 
@@ -90,18 +138,18 @@ public class Principal {
         }
     }
 
-    private static void mostrarMenuEvento() {
+    private static void mostrarMenuEvento(ArrayList<EventoImpl> eventos, HashMap<String, String> usuarios) {
         System.out.println("Bienvenido a la app de EVENTOS: " +
+                "Usuario actual: " + usuarioActual +
                 "\n\t1. Mostrar Eventos"+
                 "\n\t2. Mostrar Eventos futuros"+
                 "\n\t3. Añadir evento presencial"+
                 "\n\t4. Añadir evento online"+
                 "\n\t5. Borrar Eventos"+
                 "\n\t6. Crear nuevo usuario"+
-                "\n\t7. Salir");
-    }
+                "\n\t7. Salir"+
+                "\n\t Seleccione una opción (1-7):");
 
-    private static void mostrarMenu(ArrayList<EventoImpl> eventos, HashMap<String, String> usuarios) {
         Scanner sc = new Scanner(System.in);
 
         int opcion = 0;
@@ -116,42 +164,10 @@ public class Principal {
                 case 2:
                     listarEventosFuturos(eventos);
                 case 3:
-                    System.out.println("Dime el nombre de usuario");
-                    String nuevoUsuario = sc.nextLine();
-                    if (!comprobarUsuario(usuarios, nuevoUsuario)){
-                        break;
-                    }
-                    System.out.println("Dime la contraseña del nuevo usuario");
-                    String nuevaPass = sc.nextLine();
-
-
-                    boolean esCorrecta = false;
-
-                    while(esCorrecta){
-                        try{
-                            esCorrecta = comprobarNuevaPass(nuevaPass);
-                            System.out.println("Contraseña correcta");
-                        } catch (PasswordException e) {
-                            System.out.println(e.getTipoError());
-                            System.out.println("Intentalo de nuevo");
-                        }
-
-                    }
-
-                    try {
-                        if (comprobarNuevaPass(nuevaPass)) {
-                            try {
-                                addUser(usuarios, nuevoUsuario, nuevaPass);
-                            }catch (Exception e){
-                                e.getMessage();
-                            }
-                        }
-                    } catch (PasswordException e) {
-                        System.out.println(e.getTipoError());
-                    }
-
+                    añadirEventoPresencial(eventos);
                     break;
                 case 4:
+                    añadirEventoOnline(eventos);
                     break;
                 case 5:
                     eliminarEvento(eventos);
@@ -160,12 +176,103 @@ public class Principal {
                     crearNuevoUsuario(usuarios);
                     break;
                 case 7:
-
+                    System.out.println("Saliendo de la aplicación");
+                    sc.close();
+                break;
             }
 
-        }while (opcion != 0);
-
+        }while (opcion != 7);
     }
+
+    private static void añadirEventoOnline(ArrayList<EventoImpl> eventos) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n[CREAR EVENTO ONLINE]");
+
+        // Solo lo diferente al presencial:
+        System.out.print("Nombre: ");
+        String nombre = sc.nextLine();
+
+        System.out.print("Plataforma: ");
+        String plataforma = sc.nextLine();  // ← Esto es lo NUEVO
+
+        // La fecha es igual para ambos tipos
+        System.out.print("Día (ej: 15): ");
+        int dia = Integer.parseInt(sc.nextLine());
+
+        System.out.print("Mes (1-12): ");
+        int mes = Integer.parseInt(sc.nextLine());
+
+        System.out.print("Hora (0-23): ");
+        int hora = Integer.parseInt(sc.nextLine());
+
+        // Crear
+        LocalDateTime fecha = LocalDateTime.of(2024, mes, dia, hora, 0);
+        EventoOnline evento = new EventoOnline(nombre, fecha, plataforma);
+        eventos.add(evento);
+
+        System.out.println("✅ Evento online guardado en " + plataforma);
+    }
+
+    private static void añadirEventoPresencial(ArrayList<EventoImpl> eventos) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n=== AÑADIR EVENTO PRESENCIAL ===");
+
+        try {
+            //1.Pedir nombre evento
+            System.out.println("Nombre del evento");
+            String nombre = sc.nextLine();
+
+            //Verificar si ya existe un evento con ese nombre
+            for (EventoImpl evento : eventos){
+                if (evento.getNombre().equalsIgnoreCase(nombre)){
+                    System.out.println("Ya existe un evento con ese nombre");
+                    return;
+                }
+            }
+            //2. Pedir fecha y hora
+            System.out.println("\n-- Fecha y hora del Evento");
+
+            System.out.println("Año");
+            int año = Integer.parseInt(sc.nextLine());
+
+            System.out.println("Mes");
+            int mes = Integer.parseInt(sc.nextLine());
+
+            System.out.println("Día");
+            int dia = Integer.parseInt(sc.nextLine());
+
+            System.out.println("Hora");
+            int hora = Integer.parseInt(sc.nextLine());
+
+            System.out.println("Minuto");
+            int minuto = Integer.parseInt(sc.nextLine());
+
+            //Crear localdatetime
+            LocalDateTime fechaHora = LocalDateTime.of(año,mes,dia,hora,minuto);
+
+            //3.Pedir aula
+            System.out.println("Aula:");
+            String aula = sc.nextLine();
+
+            //4.Crear evento
+            EventoPresencial nuevoEvento = new EventoPresencial(nombre,fechaHora,aula);
+
+            //5.Añadir a la lista
+            eventos.add(nuevoEvento);
+
+            System.out.println("\n Evento presencial creado correctamente");
+            System.out.println("Total de eventos: " + eventos.size());
+
+            //Mostrar la información del evento creado
+            nuevoEvento.mostrarInfo();
+        } catch (NumberFormatException e){
+            System.out.println("Error: Debe ingresar números válidos para la fecha/hora");
+
+        } catch (Exception e){
+            System.out.println("Error inesperado: " + e.getMessage());
+        }
+    }
+
 
     private static void cargarUsuarios(HashMap<String, String> usuarios) {
         usuarios.put("admin", "1234");
@@ -208,5 +315,40 @@ public class Principal {
 //        }
 //
 //        return ;
+
+// CREO QUE ES UN METODO PARA VERIFICAR CONTRASEÑA
+//System.out.println("Dime el nombre de usuario");
+//                    String nuevoUsuario = sc.nextLine();
+//                    if (!comprobarUsuario(usuarios, nuevoUsuario)){
+//                        break;
+//                    }
+//                    System.out.println("Dime la contraseña del nuevo usuario");
+//                    String nuevaPass = sc.nextLine();
+//
+//
+//                    boolean esCorrecta = false;
+//
+//                    while(esCorrecta){
+//                        try{
+//                            esCorrecta = comprobarNuevaPass(nuevaPass);
+//                            System.out.println("Contraseña correcta");
+//                        } catch (PasswordException e) {
+//                            System.out.println(e.getTipoError());
+//                            System.out.println("Intentalo de nuevo");
+//                        }
+//
+//                    }
+//
+//                    try {
+//                        if (comprobarNuevaPass(nuevaPass)) {
+//                            try {
+//                                addUser(usuarios, nuevoUsuario, nuevaPass);
+//                            }catch (Exception e){
+//                                e.getMessage();
+//                            }
+//                        }
+//                    } catch (PasswordException e) {
+//                        System.out.println(e.getTipoError());
+//                    }
 
 

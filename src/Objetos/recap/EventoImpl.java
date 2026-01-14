@@ -2,7 +2,7 @@ package Objetos.recap;
 
 import java.time.LocalDateTime;
 
-public abstract class EventoImpl implements Evento{
+public abstract class EventoImpl implements mostrarInfo{
 
     protected String nombre;
     protected LocalDateTime fechaHora;
@@ -34,19 +34,9 @@ public abstract class EventoImpl implements Evento{
     @Override
     public abstract void mostrarInfo();
 
-    @Override
-    public void añadirEvento() {
 
+    public boolean esFuturo(){
+        return fechaHora.isAfter(LocalDateTime.now());
     }
-
-    @Override
-    public void modificarEvento() {
-
-    }
-
-    @Override
-    public abstract void borraEvento();
-
-    public abstract boolean esFuturo();
 
 }
