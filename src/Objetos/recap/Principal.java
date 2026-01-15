@@ -146,9 +146,15 @@ public class Principal {
 
     private static void mostrarEventos(ArrayList<EventoImpl> eventos) {
 
-        for (EventoImpl e : eventos){
-            e.mostrarInfo();
+        if (eventos.isEmpty()){
+            System.out.println("No hay eventos");
+        }else{
+            for (EventoImpl e : eventos){
+                e.mostrarInfo();
+                System.out.println(e);
+            }
         }
+
     }
 
     private static void mostrarMenuEvento(ArrayList<EventoImpl> eventos, HashMap<String, String> usuarios, String usuarioActual) {
@@ -176,6 +182,7 @@ public class Principal {
                     break;
                 case 2:
                     listarEventosFuturos(eventos);
+                    break;
                 case 3:
                     añadirEventoPresencial(eventos);
                     break;
@@ -223,7 +230,6 @@ public class Principal {
         EventoOnline evento = new EventoOnline(nombre, fecha, plataforma);
         eventos.add(evento);
 
-        System.out.println("Evento online guardado en " + plataforma);
     }
 
     private static void añadirEventoPresencial(ArrayList<EventoImpl> eventos) {
@@ -276,8 +282,6 @@ public class Principal {
             System.out.println("\n Evento presencial creado correctamente");
             System.out.println("Total de eventos: " + eventos.size());
 
-            //Mostrar la información del evento creado
-            nuevoEvento.mostrarInfo();
         } catch (NumberFormatException e){
             System.out.println("Error: Debe ingresar números válidos para la fecha/hora");
 
