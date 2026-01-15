@@ -18,10 +18,10 @@ public class Principal {
         String usuarioActual = loguearse(usuarios);
 
         if (usuarioActual != null){
-            System.out.println("Bienvenido a la aplicación");
+            System.out.println("BIENVENIDO A LA APLICACION");
             mostrarMenuEvento(eventos, usuarios,usuarioActual);
         }else {
-            System.out.println("Cerrando a la aplicacion");
+            System.out.println("CERRANDO LA APLICACIÓN");
             sc.close();
         }
 
@@ -58,6 +58,7 @@ public class Principal {
             System.out.println("Error: " + e.getMessage());
             System.out.println("Usuario no creado");
         }
+
     }
 
     private static void listarEventosFuturos(ArrayList<EventoImpl> eventos) {
@@ -65,8 +66,8 @@ public class Principal {
         if (eventos.isEmpty())
             System.out.println("No hay eventos futuros");
         else
-            for (EventoImpl ev : eventos){
-                if (ev.esFuturo()){
+            for (EventoImpl ev : eventos) {
+                if (ev.esFuturo()) {
                     ev.mostrarInfo();
                 }
             }
@@ -84,7 +85,6 @@ public class Principal {
          *
          */
         if (!nuevaPass.matches(".*[a-zA-z].*")){
-
             throw new PasswordException("La contraseña debe contener letras", TipoErrorPassword.ERROR_PASSWORD_LETRAS);
         }
         /**
@@ -94,7 +94,7 @@ public class Principal {
             throw new PasswordException("La contraseña NO puede tener numeros", TipoErrorPassword.ERROR_PASSWORD_NUM);
         }
 
-        if (!nuevaPass.matches("-*[!@#$%&*].*")){
+        if (!nuevaPass.matches(".*[!@#$%&*].*")){
             throw new PasswordException("La contraseña debe contener al menos un símbolo (!@#$%&*)", TipoErrorPassword.ERROR_PASSWORD_SIMBOLOS);
 
         }
@@ -136,7 +136,7 @@ public class Principal {
 
         }
         if (!encontrado){
-            System.out.println("Evento" + nombreEventoEliminar + "no encontrado");
+            System.out.println("Evento" + nombreEventoEliminar + " " + "no encontrado");
         }
 
         System.out.println("Quedan " + eventos.size() + " en la lista de los eventos");
@@ -156,17 +156,18 @@ public class Principal {
             }
         }
 
+
     }
 
     private static void mostrarMenuEvento(ArrayList<EventoImpl> eventos, HashMap<String, String> usuarios, String usuarioActual) {
-        System.out.println("Bienvenido a la app de EVENTOS: " +
+        System.out.println("GESTOR DE EVENTOS: " +
                 "\n\t Usuario actual: " + usuarioActual +
                 "\n\t1. Mostrar Eventos"+
                 "\n\t2. Mostrar Eventos futuros"+
                 "\n\t3. Añadir evento presencial"+
                 "\n\t4. Añadir evento online"+
                 "\n\t5. Borrar Eventos"+
-                "\n\t6. Crear nuevo usuario"+
+                "\n\t6. Crear nuevo usuario (Solo admin)"+
                 "\n\t7. Salir"+
                 "\n\t Seleccione una opción (1-7):");
 
@@ -207,14 +208,14 @@ public class Principal {
 
     private static void añadirEventoOnline(ArrayList<EventoImpl> eventos) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("\n[CREAR EVENTO ONLINE]");
+        System.out.println("\n=== AÑADIR EVENTO ONLINE ===");
 
         // Solo lo diferente al presencial:
         System.out.print("Nombre: ");
         String nombre = sc.nextLine();
 
         System.out.print("Plataforma: ");
-        String plataforma = sc.nextLine();  // ← Esto es lo NUEVO
+        String plataforma = sc.nextLine();  //  Esto es lo NUEVO
 
         // La fecha es igual para ambos tipos
         System.out.print("Día (ej: 15): ");
@@ -293,7 +294,7 @@ public class Principal {
 
 
     private static void cargarUsuarios(HashMap<String, String> usuarios) {
-        usuarios.put("admin", "Admin$#@");
+        usuarios.put("admin", "Admin@#$");
         usuarios.put("alumno", "Alumno@!$");
     }
 
@@ -304,7 +305,6 @@ public class Principal {
         int contadorIntentos = 0;
 
         while (contadorIntentos !=3) {
-            System.out.println("=== BIENVENIDO ===");
             System.out.println("Introduce el usuario: ");
             String user = sc.nextLine();
             System.out.println("Introduce la contraseña: ");
