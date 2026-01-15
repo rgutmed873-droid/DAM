@@ -77,24 +77,25 @@ public class Principal {
         //la contraseña debe cumplir las condicones de 8-12 con letras y simbolos !=?¿
         //La longitud de la contraseña debe tener entre 8 y 12 caracteres
         if (nuevaPass.length() < 8 || nuevaPass.length() >12){
-            throw new PasswordException("La contraseña debe tener entre 8 y 12 caracteres");
+            throw new PasswordException("La contraseña debe tener entre 8 y 12 caracteres", TipoErrorPassword.ERROR_PASSWORD_LONGITUD);
 
         }
         /**
          *
          */
         if (!nuevaPass.matches(".*[a-zA-z].*")){
-            throw new PasswordException("La contraseña debe contener letras");
+
+            throw new PasswordException("La contraseña debe contener letras", TipoErrorPassword.ERROR_PASSWORD_LETRAS);
         }
         /**
          *
          */
         if (nuevaPass.matches(".*\\d.*")){
-            throw new PasswordException("La contraseña NO puede tener numeros");
+            throw new PasswordException("La contraseña NO puede tener numeros", TipoErrorPassword.ERROR_PASSWORD_NUM);
         }
 
         if (!nuevaPass.matches("-*[!@#$%&*].*")){
-            throw new PasswordException("La contraseña debe contener al menos un símbolo (!@#$%&*)");
+            throw new PasswordException("La contraseña debe contener al menos un símbolo (!@#$%&*)", TipoErrorPassword.ERROR_PASSWORD_SIMBOLOS);
 
         }
 
