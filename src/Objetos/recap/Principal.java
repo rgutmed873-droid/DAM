@@ -153,7 +153,7 @@ public class Principal {
 
     private static void mostrarMenuEvento(ArrayList<EventoImpl> eventos, HashMap<String, String> usuarios, String usuarioActual) {
         System.out.println("Bienvenido a la app de EVENTOS: " +
-                "Usuario actual: " + usuarioActual +
+                "\n\t Usuario actual: " + usuarioActual +
                 "\n\t1. Mostrar Eventos"+
                 "\n\t2. Mostrar Eventos futuros"+
                 "\n\t3. Añadir evento presencial"+
@@ -288,8 +288,8 @@ public class Principal {
 
 
     private static void cargarUsuarios(HashMap<String, String> usuarios) {
-        usuarios.put("admin", "1234");
-        usuarios.put("alumno", "2345");
+        usuarios.put("admin", "Admin$#@");
+        usuarios.put("alumno", "Alumno@!$");
     }
 
     private static String loguearse(HashMap<String, String> usuarios) {
@@ -299,7 +299,7 @@ public class Principal {
         int contadorIntentos = 0;
 
         while (contadorIntentos !=3) {
-
+            System.out.println("=== BIENVENIDO ===");
             System.out.println("Introduce usuario: ");
             String user = sc.nextLine();
             System.out.println("Introduce contraseña: ");
@@ -320,48 +320,4 @@ public class Principal {
     }
 
 }
-
-
-// METODO PARA COMPROBAR SI ES FUTURO
-//        if (!getFechaHora().isBefore(LocalDateTime.now())){
-//            return true;
-//        }
-//
-//        return ;
-
-// CREO QUE ES UN METODO PARA VERIFICAR CONTRASEÑA
-//System.out.println("Dime el nombre de usuario");
-//                    String nuevoUsuario = sc.nextLine();
-//                    if (!comprobarUsuario(usuarios, nuevoUsuario)){
-//                        break;
-//                    }
-//                    System.out.println("Dime la contraseña del nuevo usuario");
-//                    String nuevaPass = sc.nextLine();
-//
-//
-//                    boolean esCorrecta = false;
-//
-//                    while(esCorrecta){
-//                        try{
-//                            esCorrecta = comprobarNuevaPass(nuevaPass);
-//                            System.out.println("Contraseña correcta");
-//                        } catch (PasswordException e) {
-//                            System.out.println(e.getTipoError());
-//                            System.out.println("Intentalo de nuevo");
-//                        }
-//
-//                    }
-//
-//                    try {
-//                        if (comprobarNuevaPass(nuevaPass)) {
-//                            try {
-//                                addUser(usuarios, nuevoUsuario, nuevaPass);
-//                            }catch (Exception e){
-//                                e.getMessage();
-//                            }
-//                        }
-//                    } catch (PasswordException e) {
-//                        System.out.println(e.getTipoError());
-//                    }
-
 
