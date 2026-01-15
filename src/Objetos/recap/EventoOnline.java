@@ -39,6 +39,6 @@ public class EventoOnline extends EventoImpl{
 
     @Override
     public boolean esFuturo() {
-        return false;
+        return super.fechaHora.isAfter(LocalDateTime.now());
     }
 }

@@ -15,10 +15,11 @@ public class Principal {
         ArrayList<EventoImpl> eventos = new ArrayList<>();
 
         cargarUsuarios(usuarios);
+        String usuarioActual = loguearse(usuarios);
 
-        if (loguearse(usuarios)){
+        if (usuarioActual != null){
             System.out.println("Bienvenido a la aplicación");
-            mostrarMenuEvento(eventos, usuarios);
+            mostrarMenuEvento(eventos, usuarios,usuarioActual);
         }else {
             System.out.println("Cerrando a la aplicacion");
             sc.close();
@@ -27,7 +28,7 @@ public class Principal {
 
     }
 
-    private static void crearNuevoUsuario(HashMap<String, String> usuarios) {
+    private static void crearNuevoUsuario(HashMap<String, String> usuarios, String usuarioActual) {
         Scanner sc = new Scanner(System.in);
 
         //Varificar si es admin el usuario
@@ -60,7 +61,15 @@ public class Principal {
     }
 
     private static void listarEventosFuturos(ArrayList<EventoImpl> eventos) {
-
+        //Mostramos la información
+        if (eventos.isEmpty())
+            System.out.println("No hay eventos futuros");
+        else
+            for (EventoImpl ev : eventos){
+                if (ev.esFuturo()){
+                    ev.mostrarInfo();
+                }
+            }
     }
 
     private static boolean comprobarNuevaPass(String nuevaPass) throws PasswordException {
@@ -93,20 +102,6 @@ public class Principal {
 
     }
 
-    private static boolean comprobarUsuario(HashMap<String, String> usuarios, String nuevoUsuario) {
-
-        if(usuarios.containsKey(nuevoUsuario))
-            return false;
-        return true;
-    }
-
-    private static void addUser(HashMap<String, String> usuarios, String nuevoUsuario, String nuevaPass) throws Exception {
-
-        if(nuevoUsuario.equals("admin"))
-            throw new Exception("Usuario invalido");
-
-        usuarios.put(nuevoUsuario,nuevaPass);
-    }
 
     private static void eliminarEvento(ArrayList<EventoImpl> eventos) {
         Scanner sc = new Scanner(System.in);
@@ -156,7 +151,7 @@ public class Principal {
         }
     }
 
-    private static void mostrarMenuEvento(ArrayList<EventoImpl> eventos, HashMap<String, String> usuarios) {
+    private static void mostrarMenuEvento(ArrayList<EventoImpl> eventos, HashMap<String, String> usuarios, String usuarioActual) {
         System.out.println("Bienvenido a la app de EVENTOS: " +
                 "Usuario actual: " + usuarioActual +
                 "\n\t1. Mostrar Eventos"+
@@ -191,7 +186,7 @@ public class Principal {
                     eliminarEvento(eventos);
                     break;
                 case 6:
-                    crearNuevoUsuario(usuarios);
+                    crearNuevoUsuario(usuarios, usuarioActual);
                     break;
                 case 7:
                     System.out.println("Saliendo de la aplicación");
@@ -228,7 +223,7 @@ public class Principal {
         EventoOnline evento = new EventoOnline(nombre, fecha, plataforma);
         eventos.add(evento);
 
-        System.out.println("✅ Evento online guardado en " + plataforma);
+        System.out.println("Evento online guardado en " + plataforma);
     }
 
     private static void añadirEventoPresencial(ArrayList<EventoImpl> eventos) {
@@ -297,7 +292,7 @@ public class Principal {
         usuarios.put("alumno", "2345");
     }
 
-    private static boolean loguearse(HashMap<String, String> usuarios) {
+    private static String loguearse(HashMap<String, String> usuarios) {
 
         Scanner sc = new Scanner(System.in);
 
@@ -312,7 +307,7 @@ public class Principal {
 
             if (usuarios.containsKey(user) && usuarios.get(user).equals(pass)) {
                 System.out.println("Login Correcto");
-                return true;
+                return user;
 
             } else {
                 System.out.println("Usuario no encontrado");
@@ -321,7 +316,7 @@ public class Principal {
 
         }
 
-        return false;
+        return null;
     }
 
 }

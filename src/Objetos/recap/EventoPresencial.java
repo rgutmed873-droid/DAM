@@ -8,8 +8,7 @@ public class EventoPresencial extends EventoImpl{
     private String aula;
 
     // Formateo para la fecha
-    private static final DateTimeFormatter formateador =
-            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static final DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     @Override
     public void mostrarInfo() {
@@ -30,7 +29,7 @@ public class EventoPresencial extends EventoImpl{
 
     @Override
     public boolean esFuturo() {
-        return false;
+        return super.fechaHora.isAfter(LocalDateTime.now());
     }
 
     public EventoPresencial(String nombre, LocalDateTime fechaHora, String aula) {
