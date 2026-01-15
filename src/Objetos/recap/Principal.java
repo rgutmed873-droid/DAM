@@ -300,9 +300,9 @@ public class Principal {
 
         while (contadorIntentos !=3) {
             System.out.println("=== BIENVENIDO ===");
-            System.out.println("Introduce usuario: ");
+            System.out.println("Introduce el usuario: ");
             String user = sc.nextLine();
-            System.out.println("Introduce contraseña: ");
+            System.out.println("Introduce la contraseña: ");
             String pass = sc.nextLine();
 
             if (usuarios.containsKey(user) && usuarios.get(user).equals(pass)) {
