@@ -28,6 +28,15 @@ public class Principal {
 
     }
 
+    /**
+     * Metodo para crear nuevos usuarios. Con este método lo primero de todo es tener una condición if para que el usuario
+     * que usando la aplicación no es admin no le dejará acceder a este metodo.
+     * Luego solicito el nombre del nuevo usuario y con otro if compruebo si el nuevo usuario ya existe
+     * Por último si no existe el usuario a crear solicito una nueva contraseña y tengo un try and catch en el que
+     * compruebo que la nueva pass cumple las condiciones, meto al nuevo usuario en el hashmap y compruebo si hay algún error
+     * @param usuarios
+     * @param usuarioActual
+     */
     private static void crearNuevoUsuario(HashMap<String, String> usuarios, String usuarioActual) {
         Scanner sc = new Scanner(System.in);
 
@@ -55,13 +64,19 @@ public class Principal {
             usuarios.put(nuevoUsuario,nuevaPass);
             System.out.println("Usuario correctamente");
         }catch (PasswordException e){
-            System.out.println("Error: " + e.getMessage());
+            System.out.println(e.getMessage());
             System.out.println("Usuario no creado");
         }
 
     }
 
+    /**
+     * Metodo para mostrar los eventos futuros es muy similar al método de mostrar todos los eventos solo que este muestra
+     * los eventos futuros.
+     * @param eventos
+     */
     private static void listarEventosFuturos(ArrayList<EventoImpl> eventos) {
+
         //Mostramos la información
         if (eventos.isEmpty())
             System.out.println("No hay eventos futuros");
@@ -73,29 +88,50 @@ public class Principal {
             }
     }
 
+    /**
+     * Metodo para comprobar cuando se crea una nueva contraseña.
+     * El primer if lo que hace es comprobar que la contraseña cumple los parametros entre 8 y 12 caracteres y si no
+     * lanza un error controlado que muestra un mensaje.
+     * El segundo if lo que hace es comprobar que la nueva contraseña coincide con la expresión regular definida
+     * El tercer if lo que hace es comprobar que la contraseña no contenga ningun valor número
+     * Y el último if comprueba que la contraseña contenga algún simbolo o caracter especial.
+     * @param nuevaPass
+     * @return
+     * @throws PasswordException
+     */
     private static boolean comprobarNuevaPass(String nuevaPass) throws PasswordException {
 
-        //la contraseña debe cumplir las condicones de 8-12 con letras y simbolos !=?¿
+
         //La longitud de la contraseña debe tener entre 8 y 12 caracteres
         if (nuevaPass.length() < 8 || nuevaPass.length() >12){
-            throw new PasswordException("La contraseña debe tener entre 8 y 12 caracteres", TipoErrorPassword.ERROR_PASSWORD_LONGITUD);
+            throw new PasswordException("ERROR: ", TipoErrorPassword.ERROR_PASSWORD_LONGITUD);
 
         }
+
         /**
-         *
+         *El (.) de esta expresión quiere decir que se puede poner cualquier caracter de la (a-zA-Z)
+         * El (*) lo que quiere decir es que se puede repetir las veces que hagan falta
+         * Por lo tanto el (.*) nos dice que las letras declaradas pueden usarse las veces que queramos o las que definamos
          */
         if (!nuevaPass.matches(".*[a-zA-z].*")){
-            throw new PasswordException("La contraseña debe contener letras", TipoErrorPassword.ERROR_PASSWORD_LETRAS);
-        }
-        /**
-         *
-         */
-        if (nuevaPass.matches(".*\\d.*")){
-            throw new PasswordException("La contraseña NO puede tener numeros", TipoErrorPassword.ERROR_PASSWORD_NUM);
+            throw new PasswordException("ERROR: ", TipoErrorPassword.ERROR_PASSWORD_LETRAS);
         }
 
+        /**
+         *Como la expresión regular anterior hay que declarar el (.*) para que pueda coger cualquier numero de veces
+         * Pero en ese caso con el (\\d) lo que queremos expresar es que la contraseña no acepte ningun caracter numérico
+         */
+        if (nuevaPass.matches(".*\\d.*")){
+            throw new PasswordException("ERROR: ", TipoErrorPassword.ERROR_PASSWORD_NUM);
+        }
+        /**
+         * Como en el enunciado o como requisitos para la creación de la contraseña nos pide caracteres especiales:
+         * En primer lugar lo que he hecho ha sido poner los (.*) para que puedas poner tanto antes como después los
+         * caracteres especiales necesarios y luego en los corchetes poner los diferentes caracteres permitidos para la
+         * creación de la contraseña.
+         */
         if (!nuevaPass.matches(".*[!@#$%&*].*")){
-            throw new PasswordException("La contraseña debe contener al menos un símbolo (!@#$%&*)", TipoErrorPassword.ERROR_PASSWORD_SIMBOLOS);
+            throw new PasswordException("ERROR: ", TipoErrorPassword.ERROR_PASSWORD_SIMBOLOS);
 
         }
 
@@ -103,7 +139,16 @@ public class Principal {
 
     }
 
-
+    /**
+     * Metodo para eliminar los eventos que se creen.
+     * En primer lugar se comprueba la lista de evento que principalmente estará borrada luego con el bucle for
+     * recorro todos los eventos que haya e imprimo por pantalla los evento que hay y sus nombres para así poder borrarlos
+     * Luego pido el nombre del evento para borrar y he hecho otro bucle for con un if que obtenga el evento por el nombre
+     * y anterior mente he hecho una variable de encontrado que sería false ya que al principio no tendría ningún valor y
+     * si envuentra el evento a eliminar se convierte el evento y lo imprimo por pantalla
+     * Por último hay una condición if por si no se ha encontrado el evento a eliminar
+     * @param eventos
+     */
     private static void eliminarEvento(ArrayList<EventoImpl> eventos) {
         Scanner sc = new Scanner(System.in);
 
@@ -144,7 +189,13 @@ public class Principal {
     }
 
 
-
+    /**
+     * Metodo para que muestre los eventos que hay.
+     * En primer lugar con la condición if compruebo que no haya eventos creados y en el else si hay evento creados
+     * recorro con el bucle for e la clase padre y que recorra el arraylist de los eventos y su información así como los
+     * eventos que hay.
+     * @param eventos
+     */
     private static void mostrarEventos(ArrayList<EventoImpl> eventos) {
 
         if (eventos.isEmpty()){
