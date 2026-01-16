@@ -130,7 +130,7 @@ public class Principal {
             if (eventos.get(i).getNombre().equalsIgnoreCase(nombreEventoEliminar)){
                 eventos.remove(i);
                 encontrado = true;
-                System.out.println("Evento " + nombreEventoEliminar + "eliminado");
+                System.out.println("Evento " + nombreEventoEliminar + " " + "eliminado");
                 break;
             }
 
@@ -160,21 +160,21 @@ public class Principal {
     }
 
     private static void mostrarMenuEvento(ArrayList<EventoImpl> eventos, HashMap<String, String> usuarios, String usuarioActual) {
-        System.out.println("GESTOR DE EVENTOS: " +
-                "\n\t Usuario actual: " + usuarioActual +
-                "\n\t1. Mostrar Eventos"+
-                "\n\t2. Mostrar Eventos futuros"+
-                "\n\t3. Añadir evento presencial"+
-                "\n\t4. Añadir evento online"+
-                "\n\t5. Borrar Eventos"+
-                "\n\t6. Crear nuevo usuario (Solo admin)"+
-                "\n\t7. Salir"+
-                "\n\t Seleccione una opción (1-7):");
 
         Scanner sc = new Scanner(System.in);
 
         int opcion = 0;
         do{
+            System.out.println("GESTOR DE EVENTOS: " +
+                    "\n\t Usuario actual: " + usuarioActual +
+                    "\n\t1. Mostrar Eventos"+
+                    "\n\t2. Mostrar Eventos futuros"+
+                    "\n\t3. Añadir evento presencial"+
+                    "\n\t4. Añadir evento online"+
+                    "\n\t5. Borrar Eventos"+
+                    "\n\t6. Crear nuevo usuario (Solo admin)"+
+                    "\n\t7. Salir"+
+                    "\n\t Seleccione una opción (1-7):");
 
             opcion = sc.nextInt();
 
