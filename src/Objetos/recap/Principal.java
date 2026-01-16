@@ -64,7 +64,7 @@ public class Principal {
             usuarios.put(nuevoUsuario,nuevaPass);
             System.out.println("Usuario correctamente");
         }catch (PasswordException e){
-            System.out.println(e.getMessage());
+            System.out.println("ERROR: " + e.getMessage());
             System.out.println("Usuario no creado");
         }
 
@@ -104,7 +104,7 @@ public class Principal {
 
         //La longitud de la contraseña debe tener entre 8 y 12 caracteres
         if (nuevaPass.length() < 8 || nuevaPass.length() >12){
-            throw new PasswordException("ERROR: ", TipoErrorPassword.ERROR_PASSWORD_LONGITUD);
+            throw new PasswordException("La longitud tiene que estar entre 8 y 12 caracteres ", TipoErrorPassword.ERROR_PASSWORD_LONGITUD);
 
         }
 
@@ -114,7 +114,7 @@ public class Principal {
          * Por lo tanto el (.*) nos dice que las letras declaradas pueden usarse las veces que queramos o las que definamos
          */
         if (!nuevaPass.matches(".*[a-zA-z].*")){
-            throw new PasswordException("ERROR: ", TipoErrorPassword.ERROR_PASSWORD_LETRAS);
+            throw new PasswordException("La contraseña debe contener un caracter de tipo letra", TipoErrorPassword.ERROR_PASSWORD_LETRAS);
         }
 
         /**
@@ -122,7 +122,7 @@ public class Principal {
          * Pero en ese caso con el (\\d) lo que queremos expresar es que la contraseña no acepte ningun caracter numérico
          */
         if (nuevaPass.matches(".*\\d.*")){
-            throw new PasswordException("ERROR: ", TipoErrorPassword.ERROR_PASSWORD_NUM);
+            throw new PasswordException("La contraseña no puede contener ningún valor numérico", TipoErrorPassword.ERROR_PASSWORD_NUM);
         }
         /**
          * Como en el enunciado o como requisitos para la creación de la contraseña nos pide caracteres especiales:
@@ -131,7 +131,7 @@ public class Principal {
          * creación de la contraseña.
          */
         if (!nuevaPass.matches(".*[!@#$%&*].*")){
-            throw new PasswordException("ERROR: ", TipoErrorPassword.ERROR_PASSWORD_SIMBOLOS);
+            throw new PasswordException("La contraseña debe contener un símbolo especial", TipoErrorPassword.ERROR_PASSWORD_SIMBOLOS);
 
         }
 
