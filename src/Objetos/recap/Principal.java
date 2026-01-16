@@ -210,27 +210,58 @@ public class Principal {
         Scanner sc = new Scanner(System.in);
         System.out.println("\n=== AÑADIR EVENTO ONLINE ===");
 
-        // Solo lo diferente al presencial:
-        System.out.print("Nombre: ");
-        String nombre = sc.nextLine();
+        try {
+            //1.Pedir nombre evento
+            System.out.println("Nombre del evento");
+            String nombre = sc.nextLine();
 
-        System.out.print("Plataforma: ");
-        String plataforma = sc.nextLine();  //  Esto es lo NUEVO
+            //Verificar si ya existe un evento con ese nombre
+            for (EventoImpl evento : eventos){
+                if (evento.getNombre().equalsIgnoreCase(nombre)){
+                    System.out.println("Ya existe un evento con ese nombre");
+                    return;
+                }
+            }
+            //2. Pedir todos los datos de fecha y hora
+            System.out.println("\n-- Fecha y hora del Evento");
 
-        // La fecha es igual para ambos tipos
-        System.out.print("Día (ej: 15): ");
-        int dia = Integer.parseInt(sc.nextLine());
+            System.out.println("Año");
+            int año = Integer.parseInt(sc.nextLine());
 
-        System.out.print("Mes (1-12): ");
-        int mes = Integer.parseInt(sc.nextLine());
+            System.out.println("Mes");
+            int mes = Integer.parseInt(sc.nextLine());
 
-        System.out.print("Hora (0-23): ");
-        int hora = Integer.parseInt(sc.nextLine());
+            System.out.println("Día");
+            int dia = Integer.parseInt(sc.nextLine());
 
-        // Crear
-        LocalDateTime fecha = LocalDateTime.of(2024, mes, dia, hora, 0);
-        EventoOnline evento = new EventoOnline(nombre, fecha, plataforma);
-        eventos.add(evento);
+            System.out.println("Hora");
+            int hora = Integer.parseInt(sc.nextLine());
+
+            System.out.println("Minuto");
+            int minuto = Integer.parseInt(sc.nextLine());
+
+            //Crear localdatetime para que muestre las variables que se han creado antes
+            LocalDateTime fechaHora = LocalDateTime.of(año,mes,dia,hora,minuto);
+
+            //3.Pedir plataforma
+            System.out.println("Plataforma:");
+            String plataforma = sc.nextLine();
+
+            //4.Crear evento online
+            EventoOnline nuevoEvento = new EventoOnline(nombre,fechaHora,plataforma);
+
+            //5.Añadir a la lista de eventos para luego su revisión y se guarden
+            eventos.add(nuevoEvento);
+
+            System.out.println("\n Evento online creado correctamente");
+            System.out.println("Total de eventos: " + eventos.size());
+
+        } catch (NumberFormatException e){
+            System.out.println("Error: Debe ingresar números válidos para la fecha/hora");
+
+        } catch (Exception e){
+            System.out.println("Error inesperado: " + e.getMessage());
+        }
 
     }
 
@@ -250,7 +281,7 @@ public class Principal {
                     return;
                 }
             }
-            //2. Pedir fecha y hora
+            //2. Pedir todos los datos de fecha y hora
             System.out.println("\n-- Fecha y hora del Evento");
 
             System.out.println("Año");
@@ -268,7 +299,7 @@ public class Principal {
             System.out.println("Minuto");
             int minuto = Integer.parseInt(sc.nextLine());
 
-            //Crear localdatetime
+            //Crear localdatetime para que muestre las variables que se han creado antes
             LocalDateTime fechaHora = LocalDateTime.of(año,mes,dia,hora,minuto);
 
             //3.Pedir aula
@@ -278,7 +309,7 @@ public class Principal {
             //4.Crear evento
             EventoPresencial nuevoEvento = new EventoPresencial(nombre,fechaHora,aula);
 
-            //5.Añadir a la lista
+            //5.Añadir a la lista para luego su revisión y se guarden
             eventos.add(nuevoEvento);
 
             System.out.println("\n Evento presencial creado correctamente");
@@ -292,12 +323,24 @@ public class Principal {
         }
     }
 
-
+    /**
+     * Metodo para guardar y cargar los diferentes usuarios que pueden acceder a la aplicación
+     * @param usuarios
+     */
     private static void cargarUsuarios(HashMap<String, String> usuarios) {
         usuarios.put("admin", "Admin@#$");
         usuarios.put("alumno", "Alumno@!$");
     }
 
+    /**
+     * Metodo para comprobar el login de los usuarios registrados a la aplicación
+     * Primero tengo puesto un contador de intentos para que si el usuario no pone correctamente el numero de veces de
+     * intentos la aplicación devuelve que no encuentra el usuario y se cierra.
+     * También una vez que es correcta comprueba que la variable de user está dentro de Hashmap de usuarios y si es correcto
+     * Inicia el login correctamente
+     * @param usuarios
+     * @return
+     */
     private static String loguearse(HashMap<String, String> usuarios) {
 
         Scanner sc = new Scanner(System.in);
