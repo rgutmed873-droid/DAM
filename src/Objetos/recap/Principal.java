@@ -159,6 +159,13 @@ public class Principal {
 
     }
 
+    /**
+     * Metodo que muestra al usuario las diferentes opciones que tiene para elegir en la aplicación
+     * Aquí solo se ha hecho un do/while en el que haga el menú y lleve a los diferentes metodos y muestre el menú.
+     * @param eventos
+     * @param usuarios
+     * @param usuarioActual
+     */
     private static void mostrarMenuEvento(ArrayList<EventoImpl> eventos, HashMap<String, String> usuarios, String usuarioActual) {
 
         Scanner sc = new Scanner(System.in);
@@ -206,6 +213,15 @@ public class Principal {
         }while (opcion != 7);
     }
 
+    /**
+     * Metodo para crear eventos en este caso online en el que he implementado un try and catch en el que lo primero
+     * solicito el nombre del evento y luego compruebo con un bucle for que el nuevo evento creado no exista ya por el nombre
+     * también se solicita los datos de las fecha uno por uno en el que luego creo un LocalDataTime en el que se muestre
+     * los datos que se le solicita al usuario al igual que el sitio de la reunión.
+     * Por último tengo dos catch en el que atrape las dos excepciones que he implementado:
+     * Una es por si el formato de la fecha esta erroneo y otro por si hay un error inesperado y lo muestre
+     * @param eventos
+     */
     private static void añadirEventoOnline(ArrayList<EventoImpl> eventos) {
         Scanner sc = new Scanner(System.in);
         System.out.println("\n=== AÑADIR EVENTO ONLINE ===");
@@ -265,6 +281,15 @@ public class Principal {
 
     }
 
+    /**
+     * Metodo para crear eventos en este caso presenciales en el que he implementado un try and catch en el que lo primero
+     * solicito el nombre del evento y luego compruebo con un bucle for que el nuevo evento creado no exista ya por el nombre
+     * También se solicita los datos de las fecha uno por uno en el que luego creo un LocalDataTime en el que se muestre
+     * los datos que se le solicita al usuario al igual que el sitio de la reunión.
+     * Por último tengo dos catch en el que atrape las dos excepciones que he implementado:
+     * Una es por si el formato de la fecha esta erroneo y otro por si hay un error inesperado y lo muestre
+     * @param eventos
+     */
     private static void añadirEventoPresencial(ArrayList<EventoImpl> eventos) {
         Scanner sc = new Scanner(System.in);
         System.out.println("\n=== AÑADIR EVENTO PRESENCIAL ===");
