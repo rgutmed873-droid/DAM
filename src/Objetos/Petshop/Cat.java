@@ -9,7 +9,7 @@ public class Cat extends Animals{
 
     //Añadir precio fijo
 
-    public Cat(Genero sex, int edad, int codigoEAN, String color, String breed, String typeHair) {
+    public Cat(int edad, int codigoEAN) {
         super(sex, edad, codigoEAN);
         this.color = color;
         this.breed = breed;

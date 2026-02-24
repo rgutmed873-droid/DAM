@@ -1,6 +1,5 @@
 package Objetos.Petshop;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -43,7 +42,7 @@ public class Principal {
 
             switch (opcion){
                 case 1:
-                    venderAnimal();
+                    venderAnimal(totalAnimalesVendidos,totalPajarosVendidos,totalRatasVendidas,totalGatosVendidos,totalPerrosVendidos);
                 break;
                 case 2:
                     mostrarVendidos(totalAnimalesVendidos);
@@ -207,31 +206,97 @@ public class Principal {
         System.out.println("Total de animales vendidos: " + totalAnimalesVendidos);
     }
 
-    private static void venderAnimal() {
+    public static void venderAnimal(int totalAnimalesVendidos, int totalPajarosVendidos, int totalRatasVendidas, int totalGatosVendidos, int totalPerrosVendidos){
 
-        System.out.println("1. Perro");
-        System.out.println("2. Gato");
-        System.out.println("3. Pajaro");
-        System.out.println("4. Rata");
+        System.out.println("1 Perro");
+        System.out.println("2 Gato");
+        System.out.println("3 Pajaro");
+        System.out.println("4 Rata");
 
-        int tipoAnimal = sc.nextInt();
+        int tipo = sc.nextInt();
 
-        System.out.println("Edad del animal");
+        System.out.println("Edad:");
         int edad = sc.nextInt();
 
-        System.out.println("EAN");
+        System.out.println("EAN:");
         int ean = sc.nextInt();
 
-        Animals a = null;
+        Animals a=null;
 
-        switch (tipoAnimal){
+        switch(tipo){
+
             case 1:
-                System.out.println("Pedigree si o no: ");
-                boolean pedigree = sc.nextBoolean();
 
-                a = new Dog(edad,ean,pedigree);
+                System.out.println("Pedigree true/false:");
+                boolean pedigree=sc.nextBoolean();
 
-                totalPerros
+                a=new Dog(edad,ean,pedigree);
+
+                totalPerrosVendidos++;
+                totalAnimalesVendidos++;
+
+                if(pedigree){
+                    System.out.println("Precio: 200");
+                }else{
+                    System.out.println("Precio: 100");
+                }
+
+                break;
+
+            case 2:
+
+                a=new Cat(edad,ean);
+
+                totalGatosVendidos++;
+                totalAnimalesVendidos++;
+
+                System.out.println("Precio: 50");
+
+                break;
+
+            case 3:
+
+                a=new Birds(edad,ean);
+
+                totalPajarosVendidos++;
+                totalAnimalesVendidos++;
+
+                System.out.println("Precio: 10");
+
+                break;
+
+            case 4:
+
+                System.out.println("Peso:");
+                double peso=sc.nextDouble();
+
+                System.out.println("Tamaño:");
+                double tam=sc.nextDouble();
+
+                if(peso>=200 && tam>=5){
+
+                    a = new Rats(edad,ean);
+
+                    totalRatasVendidas++;
+                    totalAnimalesVendidos++;
+
+                    double precio = (peso/1000)*2;
+
+                    System.out.println("Precio: "+precio);
+
+                }else{
+
+                    System.out.println("No se puede vender");
+
+                }
+
+                break;
+
         }
+
+        if(a!=null){
+            animales.add(a);
+        }
+
     }
 }
