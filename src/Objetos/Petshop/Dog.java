@@ -10,7 +10,6 @@ public class Dog extends pets{
     public String typeHair;
     public boolean pedigree;
 
-    //Añadir que llame el precio con pedigree o no
 
     /**
      * Constructor Perro
@@ -28,6 +27,7 @@ public class Dog extends pets{
         this.typeHair = typeHair;
         this.pedigree = generadorPedigree();
     }
+
 
     public String getColor() {
         return color;
